@@ -73,7 +73,7 @@ function Pomodoro() {
       }
       return setSession(nextTick);
     },
-    isTimerRunning ? 300 : null
+    isTimerRunning ? 1000 : null
   );
 
   /**
@@ -106,8 +106,14 @@ function Pomodoro() {
   const [focusDuration, setFocusDuration] = useState(25);
   const [breakDuration, setBreakDuration] = useState(5);
 
-  function refreshPage() {
-    window.location.reload();
+  // function stopSession() {
+  //   setIsTimerRunning(false);
+  //   setSession(null);
+  // }
+
+  function stopSession() {
+    setIsTimerRunning(false);
+    setSession(null);
   }
 
   return (
@@ -145,15 +151,15 @@ function Pomodoro() {
               className="btn btn-secondary"
               data-testid="stop"
               title="Stop the session"
-              onClick={isTimerRunning ? refreshPage : null}
+              disabled={!session}
+              onClick={stopSession}
             >
               <span className="oi oi-media-stop" />
             </button>
           </div>
         </div>
       </div>
-      {firstRun ? 
-      <Timer session={session} focusDuration={focusDuration} breakDuration={breakDuration}/> : <></>}
+      <Timer session={session} focusDuration={focusDuration} breakDuration={breakDuration}/>
     </div>
   );
 }
