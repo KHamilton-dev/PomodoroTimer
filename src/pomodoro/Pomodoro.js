@@ -106,14 +106,13 @@ function Pomodoro() {
   const [focusDuration, setFocusDuration] = useState(25);
   const [breakDuration, setBreakDuration] = useState(5);
 
-  // function stopSession() {
-  //   setIsTimerRunning(false);
-  //   setSession(null);
-  // }
-
-  function stopSession() {
-    setIsTimerRunning(false);
-    setSession(null);
+//   function refreshPage() {
+//     window.location.reload();
+//   }
+  
+  const stopSession = () => {
+    setIsTimerRunning(false)
+    setSession(null)
   }
 
   return (
@@ -153,7 +152,7 @@ function Pomodoro() {
               title="Stop the session"
               disabled={!session}
               onClick={stopSession}
-            >
+            > 
               <span className="oi oi-media-stop" />
             </button>
           </div>
