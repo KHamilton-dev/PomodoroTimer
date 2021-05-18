@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
-import Focus from "./Focus"
-import Break from "./Break"
-import Timer from "./Timer"
-
+import Focus from "./Focus";
+import Break from "./Break";
+import Timer from "./Timer";
 
 // These functions are defined outside of the component to insure they do not have access to state
 // and are, therefore more likely to be pure.
@@ -66,7 +65,8 @@ function Pomodoro() {
    *
    * NOTE: You will not need to make changes to the callback function
    */
-  useInterval(() => {
+  useInterval(
+    () => {
       if (session.timeRemaining === 0) {
         new Audio("https://bigsoundbank.com/UPLOAD/mp3/1482.mp3").play();
         return setSession(nextSession(focusDuration, breakDuration));
@@ -80,8 +80,6 @@ function Pomodoro() {
    * Called whenever the play/pause button is clicked.
    */
 
-  const [firstRun, setFirstRun] = useState(false)
-
   function playPause() {
     setIsTimerRunning((prevState) => {
       const nextState = !prevState;
@@ -90,7 +88,6 @@ function Pomodoro() {
           // If the timer is starting and the previous session is null,
           // start a focusing session.
           if (prevStateSession === null) {
-            setFirstRun(true);
             return {
               label: "Focusing",
               timeRemaining: focusDuration * 60,
@@ -106,20 +103,28 @@ function Pomodoro() {
   const [focusDuration, setFocusDuration] = useState(25);
   const [breakDuration, setBreakDuration] = useState(5);
 
-//   function refreshPage() {
-//     window.location.reload();
-//   }
-  
+  //   function refreshPage() {
+  //     window.location.reload();
+  //   }
+
   const stopSession = () => {
-    setIsTimerRunning(false)
-    setSession(null)
-  }
+    setIsTimerRunning(false);
+    setSession(null);
+  };
 
   return (
     <div className="pomodoro">
       <div className="row">
-        <Focus focusDuration={focusDuration} setFocusDuration={setFocusDuration} isTimerRunning={isTimerRunning}/>
-        <Break breakDuration={breakDuration} setBreakDuration={setBreakDuration} isTimerRunning={isTimerRunning}/>
+        <Focus
+          focusDuration={focusDuration}
+          setFocusDuration={setFocusDuration}
+          isTimerRunning={isTimerRunning}
+        />
+        <Break
+          breakDuration={breakDuration}
+          setBreakDuration={setBreakDuration}
+          isTimerRunning={isTimerRunning}
+        />
       </div>
       <div className="row">
         <div className="col">
@@ -152,13 +157,17 @@ function Pomodoro() {
               title="Stop the session"
               disabled={!session}
               onClick={stopSession}
-            > 
+            >
               <span className="oi oi-media-stop" />
             </button>
           </div>
         </div>
       </div>
-      <Timer session={session} focusDuration={focusDuration} breakDuration={breakDuration}/>
+      <Timer
+        session={session}
+        focusDuration={focusDuration}
+        breakDuration={breakDuration}
+      />
     </div>
   );
 }

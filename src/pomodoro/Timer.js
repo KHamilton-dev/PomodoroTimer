@@ -1,20 +1,23 @@
-import React, {useState} from "react"
-import {minutesToDuration, secondsToDuration} from "../utils/duration"
+import React, { useState } from "react";
+import { minutesToDuration, secondsToDuration } from "../utils/duration";
 
-function Timer({session, focusDuration, breakDuration}) {
-
-    let remaining = (session?.label === "Focusing") ? focusDuration : breakDuration;
-    const result = (session?.timeRemaining / (remaining * 60)) * 100;
+function Timer({ session, focusDuration, breakDuration }) {
+  let remaining = session?.label === "Focusing" ? focusDuration : breakDuration;
+  const result = (session?.timeRemaining / (remaining * 60)) * 100;
 
   if (session) {
     return (
-        <div>
+      <div>
         {/* TODO: This area should show only when there is an active focus or break - i.e. the session is running or is paused */}
         <div className="row mb-2">
           <div className="col">
             {/* TODO: Update message below to include current session (Focusing or On Break) total duration */}
             <div data-testid="session-title">
-            {session?.label} for {minutesToDuration((session?.label === "Focusing") ? focusDuration : breakDuration)} minutes
+              {session?.label} for{" "}
+              {minutesToDuration(
+                session?.label === "Focusing" ? focusDuration : breakDuration
+              )}{" "}
+              minutes
             </div>
             {/* TODO: Update message below correctly format the time remaining in the current session */}
             <p className="lead" data-testid="session-sub-title">
@@ -37,12 +40,10 @@ function Timer({session, focusDuration, breakDuration}) {
           </div>
         </div>
       </div>
-      )
-    } 
-    else 
-    {
-      return <></>
-    }
+    );
+  } else {
+    return <></>;
+  }
 }
 
 export default Timer;
